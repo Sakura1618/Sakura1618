@@ -29,7 +29,7 @@ Dyson Sphere Program Knowledge Base | DSP-KB 戴森球计划知识库
 ### Elysia-Bot
 <img src="4.png" width="300" height="220" />
 
-[指令文档](http://sakurax.top:4173/)
+[指令文档](http://bot.sakurax.top)
 
 一款功能强大、响应极速的全域机器人，主要服务于 QQ 群；  
 目前同时支持 QQ 频道、Telegram 频道、Discord 频道等；  
@@ -39,6 +39,3 @@ Dyson Sphere Program Knowledge Base | DSP-KB 戴森球计划知识库
 ## Github 统计数据和常用语言
 <img height=200 align="center" src="https://github-readme-stats-sakura1618.vercel.app/api?username=Sakura1618&theme=default&show_icons=true&hide_border=true&count_private=true&locale=cn&include_all_commits=true" />
 <img height=200 align="center" src="https://github-readme-stats-sakura1618.vercel.app/api/top-langs/?username=Sakura1618&theme=default&show_icons=true&hide_border=true&layout=donut&locale=cn" />
-
-## 浏览次数
-![Visitor Count](https://profile-counter.glitch.me/Sakura1618/count.svg)
