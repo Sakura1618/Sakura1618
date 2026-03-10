@@ -3,7 +3,7 @@
   <!-- 增强标题横幅 - 使用更动感的渐变色 -->
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:FF5F6D,100:FFC371&height=250&section=header&text=Sakura1618&fontSize=90&fontAlignY=35&animation=fadeIn&fontColor=white&desc=星辰為引，無限進步&descAlignY=55" />
 
-# 👋 Hello，here is Sakura1618's GitHub Profile!
+<!-- # 👋 Hello，here is Sakura1618's GitHub Profile! -->
 
 <!-- 动态访问计数器 - 增强效果 -->
   <p>
@@ -13,10 +13,10 @@
   </p>
 </div>
 
-<h2 align="center">
+<!-- <h2 align="center">
   <img src="https://media.giphy.com/media/Sqlj82Xy4eZKSU9iVM/giphy.gif" width="30px" height="30px" style="vertical-align: middle; position: relative; top: -2px;"/>
   关于我
-</h2>
+</h2> -->
 
 [//]: # (<table border="0" cellspacing="0" cellpadding="0" width="100%">)
 
@@ -94,7 +94,7 @@
 
 <div align="center">
   <!-- 使用更美观的动态技能图标 -->
-  <img src="https://skillicons.dev/icons?i=python,cpp,c,java,mysql,pytorch,tensorflow,mongodb,linux,matlab,html,css,js,git,vscode,latex,github,docker&perline=9" />
+  <img src="https://skillicons.dev/icons?i=python,cs,dotnet,flutter,cpp,lua,java,html,css,js,ts,go,git,vscode,visualstudio,webstorm,idea,pycharm,postman,powershell,github,docker,figma,codepen,cloudflare,linux,windows,ps,pr,ae,au,blender,obsidian&perline=9" />
 
   <!-- 添加技能动画卡片 - 改进布局 -->
 
@@ -103,9 +103,9 @@
 <!-- 擅长领域标题 - 统一样式并对齐图标 -->
 
 <!-- 动态分隔符 - 使用更现代的设计 -->
-<div align="center">
+<!-- <div align="center">
   <img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&customColorList=12&height=3" width="100%" />
-</div>
+</div> -->
 
 <h2 align="center">
   <img src="https://media.giphy.com/media/jSKBmKkvo2dPQQtsR1/giphy.gif" width="25px" height="25px" style="vertical-align: middle; position: relative; top: -2px;"/>
@@ -126,7 +126,7 @@
 </div>
 
 <!-- 项目展示部分 - 统一标题样式并对齐图标 -->
-<h2 align="center">
+<!-- <h2 align="center">
   <img src="https://media.giphy.com/media/iY8CRBdQXODJSCERIr/giphy.gif" width="30px" height="30px" style="vertical-align: middle; position: relative; top: -2px;"/>
   精选项目
 </h2>
@@ -138,7 +138,7 @@
   <a href="https://github.com/sakura1618/doctopus">
     <img src="https://github-readme-stats.vercel.app/api/pin/?username=sakura1618&repo=cb-plugin&theme=radical&hide_border=true&title_color=FF5F6D" width="49%" />
   </a>
-</div>
+</div> -->
 
 <!-- 添加项目按钮 -->
 <div align="center">
@@ -172,7 +172,7 @@
 </div>
 
 <!-- 页脚 - 统一标题样式并对齐图标 -->
-<h3 align="center">
+<!-- <h3 align="center">
   <img src="https://emojis.slackmojis.com/emojis/images/1531849430/4246/blob-sunglasses.gif?1531849430" width="30px" height="30px" style="vertical-align: middle; position: relative; top: -2px;"/>
   感谢访问我的 GitHub 主页!
   <img src="https://emojis.slackmojis.com/emojis/images/1531849430/4246/blob-sunglasses.gif?1531849430" width="30px" height="30px" style="vertical-align: middle; position: relative; top: -2px;"/>
@@ -180,7 +180,7 @@
 
 <p align="center">
   <i>让我们一起探索代码的无限可能!✨</i> 
-</p>
+</p> -->
 
 <!-- 添加波浪动画页脚 -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:FF5F6D,50:FF9671,100:FFC371&height=120&section=footer&animation=twinkling&fontAlignY=80" width="100%"/>
+<!-- <img src="https://capsule-render.vercel.app/api?type=waving&color=0:FF5F6D,50:FF9671,100:FFC371&height=120&section=footer&animation=twinkling&fontAlignY=80" width="100%"/> -->
