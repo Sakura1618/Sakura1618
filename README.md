@@ -147,6 +147,10 @@
   </a>
 </div>
 
+<div align="center">
+  <img src="git-shit.png" alt="居中图片" width="30%">
+</div>
+
 <!-- GitHub 活动图 - 统一标题样式并对齐图标 -->
 <h2 align="center">
   <img src="https://i.imgur.com/dBaSKWF.gif" height="25px" width="25px" style="vertical-align: middle; position: relative; top: -2px;"/>
