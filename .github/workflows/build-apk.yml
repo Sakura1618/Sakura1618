@@ -14,12 +14,12 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
-      - name: Install SDK 36
+      - name: Install Android 16 SDK
         run: yes | sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '8.13'
+          gradle-version: '9.4.1'
       - name: Build APK
         run: gradle :app:assembleDebug --stacktrace
       - name: Rename
