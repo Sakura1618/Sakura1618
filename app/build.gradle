@@ -5,7 +5,7 @@ android {
     compileSdk 36
 
     defaultConfig {
-        applicationId 'com.sakura.deepseekbalance'
+        applicationId 'com.sakura.deepseekbalance.a16'
         minSdk 26
         targetSdk 36
         versionCode 2
