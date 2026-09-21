@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07111f">
+<title>DeepSeek API 仪表盘</title>
+<style>
+:root{color-scheme:dark;--bg:#07111f;--card:#0d1a2b;--card2:#11233a;--line:#20344f;--text:#edf5ff;--muted:#8fa7c3;--cyan:#62d8ff;--blue:#6f8cff;--green:#55e6a5;--red:#ff6b7d}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:linear-gradient(#07111f,#050c16);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}
+body{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+.wrap{max-width:720px;margin:auto;padding:18px 14px 28px}.top{display:flex;justify-content:space-between;align-items:center;margin:4px 2px 16px}.brand{display:flex;gap:11px;align-items:center}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(145deg,#70e4ff,#6c6cff);display:grid;place-items:center;color:#07111f;font-weight:900}.brand h1{font-size:20px;margin:0}.brand small{display:block;color:var(--muted);margin-top:3px}.pill{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 9px}
+.card{background:linear-gradient(180deg,#0e1d30,#0a1625);border:1px solid #1d3452;border-radius:20px;padding:16px;margin:12px 0;box-shadow:0 18px 44px #0005}.card h2{font-size:14px;margin:0 0 13px;color:#dceaff}
+.keyrow{display:grid;grid-template-columns:1fr auto;gap:9px}.field{position:relative}.field input{width:100%;height:48px;border:1px solid #28425f;background:#081421;color:var(--text);border-radius:14px;padding:0 44px 0 13px;outline:none}.eye{position:absolute;right:6px;top:6px;width:36px;height:36px;border:0;background:transparent;color:var(--muted);font-size:17px}.btn{height:48px;border:0;border-radius:14px;padding:0 16px;background:linear-gradient(135deg,#5fdfff,#697cff);color:#04111f;font-weight:800}.helper{display:flex;justify-content:space-between;gap:12px;margin-top:11px;color:var(--muted);font-size:11px;line-height:1.5}.status{display:flex;align-items:center;gap:8px;margin-top:12px;padding:10px 12px;border:1px solid #1b3048;background:#0a1624;border-radius:12px;color:var(--muted);font-size:12px}.dot{width:8px;height:8px;border-radius:50%;background:#65758a}.status.ok .dot{background:var(--green)}.status.bad .dot{background:var(--red)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.metric{padding:13px 10px;border-radius:15px;background:linear-gradient(160deg,#10233a,#0a1726);border:1px solid #1d3551;min-width:0}.metric label{font-size:10px;color:var(--muted);display:block;margin-bottom:7px}.metric b{font-size:16px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.availability{margin-top:12px;display:flex;justify-content:space-between;align-items:center;padding:11px 12px;border-radius:14px;background:#0a1725;border:1px solid #1b324d}.badge{font-size:11px;padding:5px 9px;border-radius:999px;background:#163927;color:#6cf0b1;border:1px solid #245b3d}.badge.no{background:#3b1920;color:#ff8e9a;border-color:#60303a}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:10px}.chart{background:#0a1726;border:1px solid #1b314d;border-radius:16px;padding:12px;min-height:190px}.chart.full{grid-column:1/-1}.ctitle{font-size:12px;color:#cfe0f4;margin-bottom:5px}.csub{font-size:10px;color:var(--muted);margin-bottom:8px}canvas{display:block;width:100%;height:145px}.full canvas{height:176px}
+.models{display:flex;flex-direction:column;gap:8px}.model{display:flex;justify-content:space-between;align-items:center;padding:11px 12px;background:#0a1725;border:1px solid #1d3450;border-radius:14px}.model strong{font-size:13px}.model small{color:var(--muted)}.tag{font-size:10px;padding:4px 7px;border-radius:9px;background:#102c42;color:#74d8ff}.empty{font-size:12px;color:var(--muted)}
+details summary{cursor:pointer;color:#a9bdd4;font-size:12px}pre{white-space:pre-wrap;word-break:break-all;background:#06101c;border-radius:12px;padding:10px;color:#9cb1c9;font-size:10px;max-height:240px;overflow:auto}.footer{text-align:center;color:#607895;font-size:10px;line-height:1.6;margin-top:15px}
+@media(max-width:480px){.keyrow{grid-template-columns:1fr}.btn{width:100%}.charts{grid-template-columns:1fr}.chart.full{grid-column:auto}.grid3{gap:6px}.metric{padding:11px 8px}.metric b{font-size:14px}.helper{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><div class="logo">DS</div><div><h1>DeepSeek API 仪表盘</h1><small>Android 16 修复版 · 原生网络请求</small></div></div>
+    <div class="pill" id="lastUpdate">未刷新</div>
+  </div>
+
+  <section class="card">
+    <h2>API 连接</h2>
+    <div class="keyrow">
+      <div class="field"><input id="apiKey" type="password" autocomplete="off" placeholder="sk-..."><button id="eye" class="eye">◉</button></div>
+      <button id="refresh" class="btn">查询 / 刷新</button>
+    </div>
+    <div class="helper"><label><input id="remember" type="checkbox"> 在本机记住 Key</label><span>Key 只提交给 DeepSeek 官方 API</span></div>
+    <div id="status" class="status"><span class="dot"></span><span>等待查询</span></div>
+  </section>
+
+  <section class="card">
+    <h2>账户概览</h2>
+    <div class="grid3">
+      <div class="metric"><label>总余额</label><b id="total">—</b></div>
+      <div class="metric"><label>赠送余额</label><b id="grant">—</b></div>
+      <div class="metric"><label>充值余额</label><b id="topup">—</b></div>
+    </div>
+    <div class="availability"><div><b id="availabilityText">尚未查询</b></div><span id="availabilityBadge" class="badge no">未知</span></div>
+  </section>
+
+  <section class="card">
+    <h2>图表</h2>
+    <div class="charts">
+      <div class="chart"><div class="ctitle">余额组成</div><div class="csub">赠送余额 / 充值余额</div><canvas id="donut"></canvas></div>
+      <div class="chart"><div class="ctitle">余额变化</div><div class="csub">本机连续快照差值</div><canvas id="delta"></canvas></div>
+      <div class="chart full"><div class="ctitle">余额历史</div><div class="csub">每次查询自动保存，最多 500 条</div><canvas id="history"></canvas></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>当前可用模型</h2>
+    <div id="models" class="models"><div class="empty">查询后显示。</div></div>
+  </section>
+
+  <section class="card">
+    <details><summary>查看原始 API 返回</summary><pre id="raw">尚无数据</pre></details>
+  </section>
+
+  <div class="footer">DeepSeek 当前公开账户接口可查询余额和模型列表；官方没有公开每日历史账单接口，因此历史趋势由本机余额快照计算。</div>
+</div>
+<script>
+const $=id=>document.getElementById(id), state={balance:null,models:[],currency:'CNY'};
+const colors={cyan:'#62d8ff',blue:'#6f8cff',green:'#55e6a5',red:'#ff6b7d',grid:'#20344f',text:'#8fa7c3'};
+function status(kind,msg){const e=$('status');e.className='status '+(kind||'');e.querySelector('span:last-child').textContent=msg}
+function money(v,c='CNY'){const n=Number(v);if(!Number.isFinite(n))return '—';try{return new Intl.NumberFormat('zh-CN',{style:'currency',currency:c,maximumFractionDigits:6}).format(n)}catch(e){return n.toFixed(6)+' '+c}}
+function loadKey(){const k=localStorage.getItem('ds_key');if(k){$('apiKey').value=k;$('remember').checked=true}}
+function persistKey(){const k=$('apiKey').value.trim();if($('remember').checked&&k)localStorage.setItem('ds_key',k);else localStorage.removeItem('ds_key')}
+$('remember').onchange=persistKey;$('eye').onclick=()=>{$('apiKey').type=$('apiKey').type==='password'?'text':'password'};$('refresh').onclick=refresh;
+function refresh(){const key=$('apiKey').value.trim();if(!key){status('bad','请输入 API Key');return}persistKey();$('refresh').disabled=true;$('refresh').textContent='查询中…';status('','正在连接 DeepSeek…');try{AndroidApi.query(key)}catch(e){finishError('JS Bridge 不可用：'+e.message)}}
+window.onNativeResult=function(payload){try{const data=JSON.parse(payload);$('raw').textContent=JSON.stringify(data,null,2);if(data.error)return finishError(data.error);if(data.balanceStatus!==200){return finishError('余额接口 HTTP '+data.balanceStatus)}state.balance=data.balance||{};state.models=(data.models&&data.models.data)||[];const infos=state.balance.balance_infos||[];const info=infos.find(x=>x.currency==='CNY')||infos[0];if(info){state.currency=info.currency||'CNY';$('total').textContent=money(info.total_balance,state.currency);$('grant').textContent=money(info.granted_balance,state.currency);$('topup').textContent=money(info.topped_up_balance,state.currency);recordSnapshot(info)}const ok=!!state.balance.is_available;$('availabilityText').textContent=ok?'余额足够，可调用 API':'当前余额不足或不可用';$('availabilityBadge').textContent=ok?'可用':'不可用';$('availabilityBadge').className='badge'+(ok?'':' no');renderModels();drawAll();$('lastUpdate').textContent=new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'});status('ok','连接正常 · 已读取官方 API');$('refresh').disabled=false;$('refresh').textContent='查询 / 刷新'}catch(e){finishError('解析失败：'+e.message)}}
+function finishError(msg){status('bad',msg);$('refresh').disabled=false;$('refresh').textContent='查询 / 刷新'}
+function renderModels(){const e=$('models');if(!state.models.length){e.innerHTML='<div class="empty">没有返回模型列表。</div>';return}e.innerHTML=state.models.map(m=>'<div class="model"><div><strong>'+esc(m.id)+'</strong><br><small>owned_by: '+esc(m.owned_by||'—')+'</small></div><span class="tag">可调用</span></div>').join('')}
+function esc(s){return String(s).replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]))}
+function snapshots(){try{return JSON.parse(localStorage.getItem('ds_history')||'[]')}catch(e){return[]}}
+function recordSnapshot(info){let a=snapshots();const n={t:Date.now(),c:info.currency,total:Number(info.total_balance),grant:Number(info.granted_balance),topup:Number(info.topped_up_balance)};const last=a[a.length-1];if(last&&n.t-last.t<60000&&last.total===n.total)last.t=n.t;else a.push(n);localStorage.setItem('ds_history',JSON.stringify(a.slice(-500)))}
+function fit(c){const d=Math.min(devicePixelRatio||1,2),r=c.getBoundingClientRect();c.width=Math.max(10,Math.floor(r.width*d));c.height=Math.max(10,Math.floor(r.height*d));const x=c.getContext('2d');x.setTransform(d,0,0,d,0,0);return{x,w:r.width,h:r.height}}
+function drawAll(){drawDonut();drawHistory();drawDelta()}
+function currentInfo(){if(!state.balance)return null;const a=state.balance.balance_infos||[];return a.find(x=>x.currency===state.currency)||a[0]||null}
+function drawDonut(){const {x,w,h}=fit($('donut'));x.clearRect(0,0,w,h);const i=currentInfo(),g=i?Math.max(0,Number(i.granted_balance)):0,t=i?Math.max(0,Number(i.topped_up_balance)):0,total=g+t,cx=w/2,cy=h/2,r=Math.min(w,h)*.34,lw=Math.max(12,r*.28);x.lineWidth=lw;x.lineCap='round';x.strokeStyle='#1c3048';x.beginPath();x.arc(cx,cy,r,0,Math.PI*2);x.stroke();if(total>0){let a=-Math.PI/2;[[g,colors.cyan],[t,colors.blue]].forEach(([v,col])=>{const d=Math.PI*2*v/total;x.strokeStyle=col;x.beginPath();x.arc(cx,cy,r,a,a+d);x.stroke();a+=d})}x.fillStyle='#edf5ff';x.textAlign='center';x.font='700 17px system-ui';x.fillText(total?Math.round(g/total*100)+'%':'—',cx,cy+3);x.fillStyle=colors.text;x.font='10px system-ui';x.fillText('赠送余额',cx,cy+20)}
+function frame(x,w,h,min,max){const l=34,r=8,t=10,b=24,iw=w-l-r,ih=h-t-b;x.strokeStyle=colors.grid;x.fillStyle=colors.text;x.font='9px system-ui';x.textAlign='right';for(let k=0;k<4;k++){const y=t+ih*k/3;x.beginPath();x.moveTo(l,y);x.lineTo(w-r,y);x.stroke();x.fillText(fmt(max-(max-min)*k/3),l-5,y+3)}return{l,r,t,b,iw,ih}}
+function fmt(n){const a=Math.abs(n);if(a>=1000000)return(n/1000000).toFixed(1)+'M';if(a>=1000)return(n/1000).toFixed(1)+'k';if(a>=10)return n.toFixed(0);return n.toFixed(2)}
+function drawHistory(){const {x,w,h}=fit($('history'));x.clearRect(0,0,w,h);const a=snapshots().filter(p=>p.c===state.currency).slice(-80);if(!a.length){x.fillStyle=colors.text;x.textAlign='center';x.font='12px system-ui';x.fillText('刷新后开始记录历史',w/2,h/2);return}const vals=a.map(p=>p.total),mn=Math.min(...vals),mx=Math.max(...vals),pad=Math.max((mx-mn)*.18,.01),min=Math.max(0,mn-pad),max=mx+pad,f=frame(x,w,h,min,max);x.strokeStyle=colors.cyan;x.lineWidth=2;x.beginPath();a.forEach((p,j)=>{const px=f.l+(a.length===1?f.iw/2:f.iw*j/(a.length-1)),py=f.t+f.ih*(max-p.total)/(max-min||1);j?x.lineTo(px,py):x.moveTo(px,py)});x.stroke()}
+function drawDelta(){const {x,w,h}=fit($('delta'));x.clearRect(0,0,w,h);const a=snapshots().filter(p=>p.c===state.currency).slice(-13),ds=[];for(let i=1;i<a.length;i++)ds.push(a[i].total-a[i-1].total);if(!ds.length){x.fillStyle=colors.text;x.textAlign='center';x.font='12px system-ui';x.fillText('至少需要 2 次快照',w/2,h/2);return}const m=Math.max(...ds.map(Math.abs),.01),mid=h*.52,gap=(w-18)/ds.length,bw=Math.max(4,gap*.58);x.strokeStyle=colors.grid;x.beginPath();x.moveTo(8,mid);x.lineTo(w-8,mid);x.stroke();ds.forEach((v,i)=>{const bh=Math.max(1,Math.abs(v)/m*(h*.35)),cx=9+gap*(i+.5);x.fillStyle=v>=0?colors.green:colors.red;x.fillRect(cx-bw/2,v>=0?mid-bh:mid,bw,bh)})}
+window.addEventListener('resize',drawAll);loadKey();drawAll();
+</script>
+</body>
+</html>
